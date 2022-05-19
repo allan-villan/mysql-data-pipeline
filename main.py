@@ -90,7 +90,9 @@ def write_to_table(connection, file):
             print("Table updated successfully!")
 
 
-def query_popular_tickets(connection):
+def query_popular_events(connection):
+    """Queries the third_party_sales table to search for the most popular event"""
+
     query = 'SELECT event_name FROM third_party_sales GROUP BY event_id, event_name LIMIT 3'
 
     if connection.is_connected():
@@ -99,13 +101,16 @@ def query_popular_tickets(connection):
         record = cursor.fetchall()
         
     print("Here are the most popular tickets in the past month:")
-    for tup in record:
+    
+    for tup in record: # Iterate through the info fetched from the cursor object to print
         for letter in tup:
-            letter.replace("(',)", "")
+            letter.replace("(',)", "") # makes information presentable
             print(letter)
 
 
 def most_ticket_sales(connection):
+    """Queries the third_party_sales table to find the event with the most tickets sold"""
+
     query = """
         SELECT event_name, SUM(num_tickets) AS total_tickets FROM third_party_sales
         GROUP BY num_tickets, event_name ORDER BY total_tickets DESC LIMIT 3;
@@ -117,18 +122,32 @@ def most_ticket_sales(connection):
         record = cursor.fetchall()
 
         print('Here are the events that have the most tickets sold from the third party vendor:')
-        for tup in record:
+
+        for tup in record: # Iterate through the fetched cursor info to print
             for letter in tup:
-                str(letter).replace("(',)Decimal.", "")
+                str(letter).replace("(',)Decimal.", "") # Makes information presentable
                 print(letter)
 
 if __name__ == '__main__':
     file = 'third_party_sales_1.csv'
     connection = get_db_connection()
-    write_to_table(connection, file)
-    print('')
-    query_popular_tickets(connection)
-    print('')
-    most_ticket_sales(connection)
+
+    print("Please choose on of the following:")
+    choice = input("""
+        1) Update the third_party_sales table
+        2) Query the popular events
+        3) Get the event with the most tickets sold
+        4) Exit
+        """
+    )
+
+    if choice == 1:
+        write_to_table(connection, file)
+    elif choice == 2:
+        query_popular_events(connection)
+    elif choice == 3:
+        most_ticket_sales(connection)
+    else:
+        print("Exiting...")
 
     connection.close()
