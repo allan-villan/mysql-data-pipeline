@@ -133,12 +133,12 @@ if __name__ == '__main__':
     connection = get_db_connection()
 
     print("Please choose on of the following:")
-    choice = input("""
+    choice = int(input("""
         1) Update the third_party_sales table
         2) Query the popular events
         3) Get the event with the most tickets sold
         4) Exit
-        """
+        """)
     )
 
     if choice == 1:
