@@ -132,10 +132,10 @@ if __name__ == '__main__':
     file = 'third_party_sales_1.csv'
     connection = get_db_connection()
 
-    print("Please choose on of the following:")
+    print("Please choose one of the following:")
     choice = int(input("""
         1) Update the third_party_sales table
-        2) Query the popular events
+        2) Query the most popular events
         3) Get the event with the most tickets sold
         4) Exit
         """)
