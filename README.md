@@ -1,5 +1,5 @@
 # data-pipeline-test
-The purpose of this repository is to create a data pipeline using Python to assist with the sale of tickets.
+The purpose of this repository is to create a data pipeline using Python to assist with the sale of tickets. It takes .csv data and saves it in a MySQL database.
 
 
 ## Getting started:
